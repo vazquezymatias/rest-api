@@ -7,16 +7,16 @@ app.use(express.json())
 // AUTENTICADOR DE ZOD PROPIO
 const {validateMovie, validatePartial} = require('./auth')
 app.disable('x-powered-by')
-const port = 1234
-const ACCEPTED_ORIGINS = ['http://localhost:8080']
+const port = process.env.PORT ?? 1234
+const ACCEPTED_ORIGINS = ['http://localhost:8080','*']
 
-app.get('/',(req,res)=>{
-    res.json("hola mundo")
-})
+// app.get('/',(req,res)=>{
+//     res.json("hola mundo")
+// })
 
 // GET ALL MOVIES OR BY GENRE
-app.get('/movies',(req,res)=>{
-    res.header('Access-Control-Allow-Origin','http://localhost:8080')
+app.get('/',(req,res)=>{
+    res.header('Access-Control-Allow-Origin','*')
     const {genre} = req.query
     if(genre){
         const filteredMovies = movies.filter(movie=>movie.genre.some(g => g.toLowerCase() === genre.toLowerCase()))
@@ -76,7 +76,7 @@ app.options('/movies/:id',(req,res)=>{
 })
 // DELETE
 app.delete('/movies/:id',(req,res)=>{
-    res.header('Access-Control-Allow-Origin','http://localhost:8080')
+    res.header('Access-Control-Allow-Origin','*')
     const {id} = req.params
     const movieIndex = movies.findIndex(movie=> movie.id === id)
     if(movieIndex == -1){
