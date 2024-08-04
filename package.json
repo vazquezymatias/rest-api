@@ -12,6 +12,7 @@
   "description": "",
   "dependencies": {
     "express": "4.19.2",
+    "node": "20.16.0",
     "zod": "3.23.8"
   }
 }
